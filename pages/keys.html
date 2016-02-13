@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SeeRedis</title>
+</head>
+<%
+local wsapi_util = require "wsapi.util"
+
+local keys
+if query == "" or not query then
+	keys = {}
+else
+	keys, err = redis:keys(query ~= "" and query or "*")
+end
+
+table.sort(keys)
+
+local results
+if next(keys) then
+	redis:init_pipeline()
+	for _,key in ipairs(keys) do
+		redis:type(key)
+	end
+	results = redis:commit_pipeline()
+else
+	results = {}
+end
+%>
+<body>
+	<header>
+		<h1>SeeRedis: <%=query%></h1>
+	</header>
+	<p>Connected to server: <span><a href="<%=web:link("")%>"><%= redis_server %>:<%= redis_port %></a></span></p>
+	<form action="">
+		<p>Query:</p>
+		<input type="input" value="<%= query or "*"%>" name="query" style="width:415px"/>
+		<input type="submit" value="Query"/>
+	</form>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Type</th><th>Key</th>
+			</tr>
+		</thead>
+	<%
+		for i,key in ipairs(keys) do
+			local key_type = results[i]
+	%>
+		<tr>
+			<td><%= key_type%></td>
+			<td>
+				<a href="<%=web:link("inspect/".. wsapi_util.url_encode(key))%>"><%=key%></a>
+			</td>
+		</tr>
+	<% end %>
+	</table>
+</body>
+</html>

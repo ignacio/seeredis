@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SeeRedis</title>
+</head>
+
+<body>
+	<header>
+		<h1>SeeRedis</h1>
+	</header>
+	<form action="connect">
+	<p>Server to connect to:</p>
+	<input type="input" value="<%= redis_server or "127.0.0.1"%>" name="server"/>
+	<input type="input" value="<%= redis_port or "127.0.0.1"%>" name="port"/>
+	<input type="submit" value="Connect"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SeeRedis</title>
+<%
+Stylesheets.Add(web:link("styles/jquery.jsonview.min.css"))
+Scripts.Add(web:link("scripts/jquery.jsonview.min.js"))
+Scripts.Add(web:link("scripts/inspect_string.js"))
+%>
+</head>
+
+<body>
+	<header>
+		<h1>SeeRedis</h1>
+	</header>
+	<p>Connected to server: <%= redis_server %>:<%= redis_port %></p>
+	<h2><%= key%> (<%=key_type%>)</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tr>
+			<td>
+				<textarea id="rawData" type="text" cols="150"><%=values[1]%></textarea>
+				<input id="newValueButton" type="submit" value="Update" />
+			</td>
+		</tr>
+	</table>
+	<br/>
+	<input type="Button" value="Format as JSON" id="formatButton" />
+	<div id="ControlsRow">
+		<br/>
+		<button id="collapse-btn">Collapse</button>
+		<button id="expand-btn">Expand</button>
+		<button id="toggle-btn">Toggle</button>
+		<button id="toggle-level1-btn">Toggle level1</button>
+		<button id="toggle-level2-btn">Toggle level2</button>
+		<div id="json"></div>
+	</div>
+</body>
+</html>
