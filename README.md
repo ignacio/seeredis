@@ -10,10 +10,11 @@ You need to have OpenResty installed. I tested with 1.9.7.3. Go grab it [here](h
 
     git clone https://github.com/ignacio/seeredis.git
 
-Install [LuaRocks](https://luarocks.org) if you haven't already, since we need to install a couple of Lua modules:
+Install [LuaRocks](https://luarocks.org) if you haven't already, since we need to install some Lua modules:
 
     luarocks install wsapi-openresty
     luarocks install webrender --server=https://luarocks.org/manifests/ignacio
+    luarocks install orbit
 
 Edit `conf/develop.conf` and adjust the path to OpenResty's libraries. Then start the service:
 
